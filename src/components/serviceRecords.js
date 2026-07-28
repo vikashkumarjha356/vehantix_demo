@@ -51,29 +51,38 @@ export function renderServiceRecords() {
       </div>
     </div>
 
-    <div class="animate-on-scroll stagger-2">
-      <div class="service-table-wrap">
-        <table class="service-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Type</th>
-              <th>Description</th>
-              <th>Odometer</th>
-              <th>Cost</th>
-              <th>Service Center</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rows}
-          </tbody>
-        </table>
+    <div class="next-service-banner animate-on-scroll stagger-2" style="margin-top: 24px; margin-bottom: 24px;">
+      <div class="next-service-banner__icon">🔔</div>
+      <div>
+        <div class="next-service-banner__text">Next Service Due</div>
+        <div class="next-service-banner__date">${formatDate(nextDue)} · Approx. ${(lastService.odometer + 5000).toLocaleString('en-IN')} km</div>
       </div>
-      <div class="next-service-banner">
-        <div class="next-service-banner__icon">🔔</div>
-        <div>
-          <div class="next-service-banner__text">Next Service Due</div>
-          <div class="next-service-banner__date">${formatDate(nextDue)} · Approx. ${(lastService.odometer + 5000).toLocaleString('en-IN')} km</div>
+    </div>
+
+    <div class="ownership-toggle-container animate-on-scroll stagger-2">
+      <button id="service-toggle-btn" class="ownership-toggle-btn">
+        <span>View Detailed Service Logs</span>
+        <svg class="ownership-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div id="service-details-wrapper" class="ownership-details-wrapper">
+        <div class="ownership-details-inner" style="padding-top:16px;">
+          <div class="service-table-wrap" style="box-shadow:none; border:1px solid rgba(255,255,255,0.05);">
+            <table class="service-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                  <th>Odometer</th>
+                  <th>Cost</th>
+                  <th>Service Center</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -219,4 +228,15 @@ export function renderServiceRecords() {
       },
     },
   });
+
+  // ── Animated Toggle Logic ──
+  const toggleBtn = document.getElementById('service-toggle-btn');
+  const detailsWrapper = document.getElementById('service-details-wrapper');
+  
+  if (toggleBtn && detailsWrapper) {
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = detailsWrapper.classList.toggle('is-open');
+      toggleBtn.classList.toggle('is-active', isOpen);
+    });
+  }
 }

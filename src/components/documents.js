@@ -267,26 +267,30 @@ export function renderDocuments() {
       (doc, i) => {
         const cfg = statusConfig[doc.status];
         return `
-    <div class="doc-row animate-on-scroll stagger-${i + 1}">
-      <div class="doc-row__icon">📄</div>
-      <div class="doc-row__info">
-        <div class="doc-row__name">${doc.name}</div>
-        ${doc.name.includes('Insurance') ? `<div class="doc-row__issuer">${doc.issuer}</div>` : ''}
-        <div class="doc-row__detail">${doc.keyDetail}</div>
-        <div class="doc-row__validity">📅 ${formatDate(doc.validFrom)} — ${doc.validTo ? formatDate(doc.validTo) : 'Lifetime'}</div>
+    <div class="card animate-on-scroll stagger-${i + 1}" style="display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div style="display:flex; gap:12px; align-items:center;">
+          <div class="doc-row__icon" style="background:var(--color-primary-light); color:var(--color-primary-dark);">📄</div>
+          <div>
+            <div class="doc-row__name">${doc.name}</div>
+            ${doc.name.includes('Insurance') ? `<div class="doc-row__issuer" style="margin-top:2px;">${doc.issuer}</div>` : ''}
+          </div>
+        </div>
+        <span class="${cfg.badge} badge" style="font-size:11px; white-space:nowrap; flex-shrink:0;">${cfg.label}</span>
       </div>
-      <div class="doc-row__meta">
-        <span class="${cfg.badge} badge" style="font-size:11px;">${cfg.label}</span>
+      <div style="flex:1;">
+        <div class="doc-row__validity" style="margin-bottom:8px; font-weight:500;">📅 Valid: ${formatDate(doc.validFrom)} — ${doc.validTo ? formatDate(doc.validTo) : 'Lifetime'}</div>
+        <div class="doc-row__detail" style="white-space:normal; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;">${doc.keyDetail}</div>
       </div>
-      <div class="doc-row__actions">
-        <button class="doc-action-btn doc-action-btn--view" data-doc-id="${doc.id}" title="View document details">
+      <div class="doc-row__actions" style="margin-top:auto; display:flex; gap:8px; width:100%;">
+        <button class="doc-action-btn doc-action-btn--view" data-doc-id="${doc.id}" title="View document details" style="flex:1; justify-content:center; background:rgba(13,148,136,0.1); color:var(--color-primary-dark); border:none;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
             <circle cx="12" cy="12" r="3"></circle>
           </svg>
           <span>View</span>
         </button>
-        <button class="doc-action-btn doc-action-btn--download" data-doc-id="${doc.id}" title="Download as PDF">
+        <button class="doc-action-btn doc-action-btn--download" data-doc-id="${doc.id}" title="Download as PDF" style="flex:1; justify-content:center; background:var(--color-surface-hover); border:1px solid var(--color-border); color:var(--color-text);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
@@ -305,17 +309,21 @@ export function renderDocuments() {
   const missingItems = missingDocs
     .map(
       (name, i) => `
-    <div class="doc-row doc-row--missing animate-on-scroll stagger-${i + availableCount + 1}">
-      <div class="doc-row__icon" style="opacity:0.4;">📋</div>
-      <div class="doc-row__info">
-        <div class="doc-row__name" style="color: var(--color-text-muted);">${name}</div>
-        <div class="doc-row__detail" style="color: var(--color-danger);">Not uploaded</div>
+    <div class="card doc-row--missing animate-on-scroll stagger-${i + availableCount + 1}" style="display:flex; flex-direction:column; gap:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div style="display:flex; gap:12px; align-items:center;">
+          <div class="doc-row__icon" style="opacity:0.4;">📋</div>
+          <div>
+            <div class="doc-row__name" style="color: var(--color-text-muted);">${name}</div>
+          </div>
+        </div>
+        <span class="badge badge--danger" style="font-size:11px; white-space:nowrap; flex-shrink:0;">Missing</span>
       </div>
-      <div class="doc-row__meta">
-        <span class="badge badge--danger" style="font-size:11px;">Missing</span>
+      <div style="flex:1;">
+        <div class="doc-row__detail" style="color: var(--color-danger); white-space:normal;">This document has not been uploaded yet.</div>
       </div>
-      <div class="doc-row__actions">
-        <button class="doc-action-btn doc-action-btn--upload" title="Upload ${name}">
+      <div class="doc-row__actions" style="margin-top:auto; display:flex; width:100%;">
+        <button class="doc-action-btn doc-action-btn--upload" title="Upload ${name}" style="flex:1; justify-content:center; background:var(--color-header); color:#fff; border:none;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="17 8 12 3 7 8"></polyline>
@@ -335,30 +343,9 @@ export function renderDocuments() {
         <span class="section-header__label">FILES</span>
         <h2 class="section-header__title">Vehicle Documents</h2>
       </div>
-    </div>
-
-    <div class="docs-overview animate-on-scroll stagger-1">
-      <div class="card card--no-hover docs-chart-card">
-        <div class="chart-container chart-container--doughnut">
-          <canvas id="docs-chart"></canvas>
-        </div>
-      </div>
-      <div class="docs-stats">
-        <div class="card card--no-hover docs-stat-card docs-stat-card--available">
-          <div class="docs-stat-card__number">${availableCount}</div>
-          <div class="docs-stat-card__label">Available</div>
-          <div class="docs-stat-card__bar" style="background: var(--color-success);"></div>
-        </div>
-        <div class="card card--no-hover docs-stat-card docs-stat-card--missing">
-          <div class="docs-stat-card__number">${missingCount}</div>
-          <div class="docs-stat-card__label">Missing</div>
-          <div class="docs-stat-card__bar" style="background: var(--color-danger);"></div>
-        </div>
-        <div class="card card--no-hover docs-stat-card">
-          <div class="docs-stat-card__number">${totalExpected}</div>
-          <div class="docs-stat-card__label">Expected</div>
-          <div class="docs-stat-card__bar" style="background: var(--color-primary);"></div>
-        </div>
+      <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
+        <span class="badge badge--outline" style="font-size:12px; font-weight:600;">${availableCount} / ${totalExpected} Uploaded</span>
+        ${missingCount > 0 ? `<span class="badge badge--danger" style="font-size:12px; font-weight:600;">${missingCount} Missing Action Required</span>` : '<span class="badge badge--success" style="font-size:12px; font-weight:600;">All complete</span>'}
       </div>
     </div>
 
@@ -381,70 +368,5 @@ export function renderDocuments() {
       const doc = documents.find(d => d.id === btn.dataset.docId);
       if (doc) generateDocPDF(doc);
     });
-  });
-
-  // ── Render Doughnut Chart ──
-  const ctx = document.getElementById('docs-chart').getContext('2d');
-
-  // Center text plugin
-  const centerTextPlugin = {
-    id: 'centerText',
-    afterDraw(chart) {
-      const { width, height, ctx: c } = chart;
-      c.save();
-      c.textAlign = 'center';
-      c.textBaseline = 'middle';
-      const centerX = width / 2;
-      const centerY = height / 2;
-
-      // Large number
-      c.font = "700 28px 'Inter', sans-serif";
-      c.fillStyle = '#1e293b';
-      c.fillText(`${availableCount}/${totalExpected}`, centerX, centerY - 8);
-
-      // Small label
-      c.font = "500 11px 'Inter', sans-serif";
-      c.fillStyle = '#94a3b8';
-      c.fillText('Documents', centerX, centerY + 16);
-
-      c.restore();
-    },
-  };
-
-  new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Available', 'Missing'],
-      datasets: [
-        {
-          data: [availableCount, missingCount],
-          backgroundColor: ['#10b981', 'rgba(220, 38, 38, 0.2)'],
-          borderColor: ['#10b981', '#dc2626'],
-          borderWidth: [0, 1.5],
-          hoverBackgroundColor: ['#059669', 'rgba(220, 38, 38, 0.35)'],
-          spacing: 3,
-          borderRadius: 4,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      cutout: '72%',
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: 'rgba(26, 35, 50, 0.92)',
-          titleFont: { family: 'Inter', size: 12, weight: '600' },
-          bodyFont: { family: 'Inter', size: 12 },
-          padding: 12,
-          cornerRadius: 8,
-          callbacks: {
-            label: (ctx) => ` ${ctx.label}: ${ctx.parsed} documents`,
-          },
-        },
-      },
-    },
-    plugins: [centerTextPlugin],
   });
 }
