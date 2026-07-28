@@ -43,11 +43,11 @@ export function renderOwnershipHistory() {
       </div>
     </div>
     <div class="ownership-toggle-container mt-24 animate-on-scroll stagger-2">
-      <button id="ownership-toggle-btn" class="ownership-toggle-btn">
+      <button id="ownership-toggle-btn" class="ownership-toggle-btn is-active">
         <span>View Detailed History</span>
         <svg class="ownership-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </button>
-      <div id="ownership-details-wrapper" class="ownership-details-wrapper">
+      <div id="ownership-details-wrapper" class="ownership-details-wrapper is-open">
         <div class="ownership-details-inner">
           <div class="owner-chips">
             ${ownerSummaries}

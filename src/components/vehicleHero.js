@@ -133,7 +133,7 @@ export function renderVehicleHero() {
           <div class="vehicle-hero__plate">${vehicle.registrationNo}</div>
           <div>
             <h2 class="vehicle-hero__name">${vehicle.make} ${vehicle.model} ${vehicle.year}</h2>
-            <p class="vehicle-hero__variant">${vehicle.variant} · ${vehicle.fuel} · ${vehicle.transmission}</p>
+            <p class="vehicle-hero__variant">${vehicle.variant} · ${vehicle.fuel} · ${vehicle.transmission} · ${vehicle.bodyType} · ${vehicle.driveType}</p>
           </div>
           <div class="vehicle-hero__badges">
             <span class="badge badge--primary">${vehicle.isPrimary ? 'Primary' : 'Secondary'}</span>
@@ -148,13 +148,7 @@ export function renderVehicleHero() {
                 <div class="vehicle-hero__spec-value">${vehicle.year}</div>
               </div>
             </div>
-            <div class="vehicle-hero__spec">
-              <div class="vehicle-hero__spec-icon">⛽</div>
-              <div>
-                <div class="vehicle-hero__spec-label">Mileage</div>
-                <div class="vehicle-hero__spec-value">${vehicle.mileage}</div>
-              </div>
-            </div>
+
             <div class="vehicle-hero__spec">
               <div class="vehicle-hero__spec-icon">📏</div>
               <div>
@@ -174,6 +168,41 @@ export function renderVehicleHero() {
               <div>
                 <div class="vehicle-hero__spec-label">Seats</div>
                 <div class="vehicle-hero__spec-value">${vehicle.seatingCapacity} Seater</div>
+              </div>
+            </div>
+            <div class="vehicle-hero__spec">
+              <div class="vehicle-hero__spec-icon">🔧</div>
+              <div>
+                <div class="vehicle-hero__spec-label">Engine No.</div>
+                <div class="vehicle-hero__spec-value" style="font-size:11px; font-family: monospace;">${vehicle.engineNo}</div>
+              </div>
+            </div>
+            <div class="vehicle-hero__spec">
+              <div class="vehicle-hero__spec-icon">📋</div>
+              <div>
+                <div class="vehicle-hero__spec-label">Registered</div>
+                <div class="vehicle-hero__spec-value">${new Date(vehicle.registrationDate).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+              </div>
+            </div>
+            <div class="vehicle-hero__spec">
+              <div class="vehicle-hero__spec-icon">🛠️</div>
+              <div>
+                <div class="vehicle-hero__spec-label">Next Service</div>
+                <div class="vehicle-hero__spec-value">${new Date(vehicle.nextServiceDue).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+              </div>
+            </div>
+            <div class="vehicle-hero__spec">
+              <div class="vehicle-hero__spec-icon">🛡️</div>
+              <div>
+                <div class="vehicle-hero__spec-label">Insurance Till</div>
+                <div class="vehicle-hero__spec-value">${new Date(vehicle.insuranceValidTill).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
+              </div>
+            </div>
+            <div class="vehicle-hero__spec">
+              <div class="vehicle-hero__spec-icon">🏁</div>
+              <div>
+                <div class="vehicle-hero__spec-label">Fitness Till</div>
+                <div class="vehicle-hero__spec-value">${new Date(vehicle.fitnessValidTill).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</div>
               </div>
             </div>
           </div>

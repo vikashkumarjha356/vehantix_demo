@@ -282,37 +282,11 @@ body {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 10px 16px;
   z-index: 1000;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
   padding-top: calc(env(safe-area-inset-top, 0px) + 10px);
-  gap: 12px;
-}
-
-/* Brand Section */
-.top-nav__brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  color: #fff;
-}
-
-.top-nav__brand svg {
-  color: #e94560;
-  filter: drop-shadow(0 0 6px rgba(233, 69, 96, 0.4));
-}
-
-.top-nav__brand span {
-  font-family: 'Inter', sans-serif;
-  font-weight: 800;
-  font-size: 16px;
-  letter-spacing: -0.3px;
-  background: linear-gradient(135deg, #e94560, #f59e0b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .top-nav__tabs {
@@ -426,11 +400,6 @@ body {
 
 .top-nav__btn:active {
   transform: scale(0.95);
-}
-
-.top-nav__user {
-  flex-shrink: 0;
-  margin-left: 4px;
 }
 
 /* ─── Main Content ─────────────────────────────────────────── */
@@ -765,7 +734,7 @@ body {
 
 .vehicle-hero__specs {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
@@ -802,10 +771,298 @@ body {
   font-size: 13px;
 }
 
+/* ─── Vehicle Quick Status Cards ──────────────────────────────── */
+.vehicle-status-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.status-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.status-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.status-card--ok {
+  border-left: 3px solid #10b981;
+}
+
+.status-card--warning {
+  border-left: 3px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.04);
+}
+
+.status-card--overdue {
+  border-left: 3px solid #ef4444;
+  background: rgba(239, 68, 68, 0.04);
+}
+
+.status-card__icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.status-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.status-card__label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-card__value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.status-card__badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.status-card__badge--ok {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.status-card__badge--warning {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+}
+
+.status-card__badge--overdue {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+
+/* ─── Vehicle Detail Sections ─────────────────────────────────── */
+.vehicle-detail-section {
+  margin-top: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.vehicle-detail-section__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 16px 0;
+  letter-spacing: -0.2px;
+}
+
+.vehicle-detail-section__title svg {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.vehicle-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0;
+}
+
+.vehicle-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+}
+
+.vehicle-detail-item:nth-last-child(-n+4) {
+  border-bottom: none;
+}
+
+.vehicle-detail-grid > .vehicle-detail-item:nth-child(4n) {
+  border-right: none;
+}
+
+.vehicle-detail-item__label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.vehicle-detail-item__value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
 .vehicle-hero__badges {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+/* ─── Vehicle Hero Extended Column ────────────────────────────── */
+.vehicle-hero__extended {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.vehicle-hero__statuses {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.status-mini {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  transition: transform 0.2s ease;
+}
+
+.status-mini:hover {
+  transform: translateX(2px);
+}
+
+.status-mini--ok {
+  border-left: 3px solid #10b981;
+}
+
+.status-mini--warning {
+  border-left: 3px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.04);
+}
+
+.status-mini--overdue {
+  border-left: 3px solid #ef4444;
+  background: rgba(239, 68, 68, 0.04);
+}
+
+.status-mini__icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.status-mini__text {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status-mini__badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.status-mini__badge--ok {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.status-mini__badge--warning {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+}
+
+.status-mini__badge--overdue {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+
+.vehicle-hero__detail-block {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.vehicle-hero__detail-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 10px 0;
+  letter-spacing: -0.2px;
+}
+
+.vehicle-hero__detail-title svg {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.vehicle-hero__detail-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.vehicle-hero__detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.vehicle-hero__detail-row:last-child {
+  border-bottom: none;
+}
+
+.vehicle-hero__detail-row span:first-child {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.vehicle-hero__detail-row span:last-child {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: right;
 }
 
 /* ─── Badges ───────────────────────────────────────────────── */
@@ -1850,8 +2107,12 @@ body {
     display: none;
   }
 
-  .vehicle-hero__specs {
+  .vehicle-hero {
     grid-template-columns: 1fr;
+  }
+
+  .vehicle-hero__specs {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .challan-grid {
