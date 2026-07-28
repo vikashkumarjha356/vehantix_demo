@@ -7,7 +7,6 @@ import './style.css';
 
 // Components
 import { renderVehicleHero } from './components/vehicleHero.js';
-import { renderVehicleHealth } from './components/vehicleHealth.js';
 import { renderOwnershipHistory } from './components/ownershipHistory.js';
 import { renderChallanRecords } from './components/challanRecords.js';
 import { renderAccidentHistory } from './components/accidentHistory.js';
@@ -20,15 +19,42 @@ import { renderEmergencyContacts } from './components/emergencyContacts.js';
 // Utilities
 import {
   initScrollAnimations,
-  initScrollSpy,
-  initSidebar,
-  initSmoothScroll,
 } from './utils/animations.js';
+
+function initTabs() {
+  const btns = document.querySelectorAll('.top-nav__btn');
+  const tabs = document.querySelectorAll('.tab-content');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active from all btns
+      btns.forEach(b => b.classList.remove('active'));
+      // Add active to clicked
+      btn.classList.add('active');
+
+      // Hide all tabs
+      tabs.forEach(tab => {
+        tab.style.display = 'none';
+        tab.classList.remove('active');
+      });
+      
+      // Show target tab
+      const targetId = btn.getAttribute('data-target');
+      const targetTab = document.getElementById(targetId);
+      if (targetTab) {
+        targetTab.style.display = 'block';
+        targetTab.classList.add('active');
+      }
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+}
 
 function init() {
   // Render all sections
   renderVehicleHero();
-  renderVehicleHealth();
   renderOwnershipHistory();
   renderChallanRecords();
   renderAccidentHistory();
@@ -40,10 +66,8 @@ function init() {
 
   // Initialize interactions (after DOM is populated)
   requestAnimationFrame(() => {
-    initSidebar();
-    initSmoothScroll();
     initScrollAnimations();
-    initScrollSpy();
+    initTabs();
   });
 }
 

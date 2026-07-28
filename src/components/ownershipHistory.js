@@ -42,8 +42,18 @@ export function renderOwnershipHistory() {
         <canvas id="ownership-chart"></canvas>
       </div>
     </div>
-    <div class="owner-chips">
-      ${ownerSummaries}
+    <div class="ownership-toggle-container mt-24 animate-on-scroll stagger-2">
+      <button id="ownership-toggle-btn" class="ownership-toggle-btn">
+        <span>View Detailed History</span>
+        <svg class="ownership-toggle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div id="ownership-details-wrapper" class="ownership-details-wrapper">
+        <div class="ownership-details-inner">
+          <div class="owner-chips">
+            ${ownerSummaries}
+          </div>
+        </div>
+      </div>
     </div>
   `;
 
@@ -149,4 +159,15 @@ export function renderOwnershipHistory() {
       },
     },
   });
+
+  // ── Animated Toggle Logic ──
+  const toggleBtn = document.getElementById('ownership-toggle-btn');
+  const detailsWrapper = document.getElementById('ownership-details-wrapper');
+  
+  if (toggleBtn && detailsWrapper) {
+    toggleBtn.addEventListener('click', () => {
+      const isOpen = detailsWrapper.classList.toggle('is-open');
+      toggleBtn.classList.toggle('is-active', isOpen);
+    });
+  }
 }
